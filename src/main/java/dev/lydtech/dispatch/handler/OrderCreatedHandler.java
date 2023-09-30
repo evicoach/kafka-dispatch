@@ -1,5 +1,6 @@
 package dev.lydtech.dispatch.handler;
 
+import dev.lydtech.dispatch.message.OrderCreated;
 import dev.lydtech.dispatch.service.DispatchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -16,7 +17,7 @@ public class OrderCreatedHandler {
     }
 
     @KafkaListener(id = "orderConsumerClient", topics = {"order.created"}, groupId = "dispatch.order.created.consumer")
-    public void listen(String payload) {
+    public void listen(OrderCreated payload) {
         log.info("Received message payload: " + payload);
         dispatchService.process(payload);
     }
